@@ -5,6 +5,15 @@ if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
        exit 1
 fi
 
+check_env=$(env | grep VIRTUAL_ENV | grep -v grep)
+
+if [ ! -n "${check_env}" ] ; then 
+       echo "Setting virtualEnv for PySpark"
+       source /home/ubuntu/pyspark/spark/bin/activate
+else
+ 	echo "Already IN Virtual Env"
+fi	
+
 ps_status=$(ps -ef | grep 'jupyter' | grep -v grep)
 
 if [ ! -n "$ps_status" ] ; then 
